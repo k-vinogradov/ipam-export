@@ -1,0 +1,6 @@
+$TTL {{ ttl }}
+@ in soa {{ ns[1] }}. {{ admin_mail }}. ([ --- serial number --- ] {{ refresh }} {{ refresh_retry }} {{ expire }} {{ nxdomain_ttl }})
+{% for host in ns %}@ in ns {{ host }}.
+{% endfor %}
+{% for rr in records %}{{ rr.resource }}. in ptr {{ rr.value }}.
+{% endfor %}

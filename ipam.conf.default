@@ -1,0 +1,23 @@
+[general]
+
+var_dir=./
+
+[api]
+url =
+app =
+username =
+password =
+
+[zone *.ip6.arpa ]
+prefix =
+type =
+section =
+template_path =
+ttl =
+refresh =
+refresh_retry =
+expire =
+nxdomain_ttl =
+ns =
+admin_mail =
+initial_sn =
