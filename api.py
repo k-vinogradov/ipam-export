@@ -1,7 +1,7 @@
 import requests
 
 from datetime import datetime
-from json.decoder import JSONDecodeError
+#from json.decoder import JSONDecodeError
 from requests.auth import HTTPBasicAuth
 
 
@@ -30,7 +30,7 @@ class API(object):
                     raise APIException(datetime['message'])
             else:
                 raise APIException('Unknown error')
-        except JSONDecodeError:
+        except ValueError:
             raise APIException(response.content)
 
     def _request(self, request_type, path, params=None):
@@ -50,7 +50,7 @@ class API(object):
                     raise APIException(json_response['message'], json_response['code'])
             else:
                 raise APIException('Unknown error')
-        except JSONDecodeError:
+        except ValueError:
             raise APIException(response.content)
 
     def _get_request(self, path, **kwargs):
