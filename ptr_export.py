@@ -4,6 +4,7 @@ from ipcalc import IP, Network
 from jinja2 import Template
 from hashlib import sha256
 
+
 parser = ConfigParser()
 parser.read('ipam.conf')
 
@@ -37,11 +38,11 @@ for section_title in resources:
             if subnet_data['isFull'] == '1':
                 ip = subnet_data['subnet'] + '/' + subnet_data['mask']
                 domains = []
-                for domain in subnet_data['Domain Names'].strip().split('\n'):
-                    domains.append(domain)
-                if len(domains) > 0:
-                    subnets[ip] = domains
-
+                if subnet_data['Domain Names'].strip():
+                    for domain in subnet_data['Domain Names'].strip().split('\n'):
+                        domains.append(domain)
+                    if len(domains) > 0:
+                        subnets[ip] = domains
             for host in api.get_addresses(subnet_data['id']):
                 ip = host['ip']
                 if ip not in hosts:
@@ -60,7 +61,7 @@ for section_title in resources:
         ptr = ip.to_reverse()
         for domain in domains:
             if len(domain) > 0:
-                resources[section_title].append((ip, ptr, domain))
+                resources[section_title].append((ip, ptr, domain.strip()))
 
     for subnet, domains in subnets.items():
         append = True
@@ -82,7 +83,7 @@ for section_title in resources:
             prefix = prefix.replace(':', '')[:octets]
             ptr = '*.{}.ip6.arpa'.format('.'.join(prefix[::-1]))
             for domain in domains:
-                resources[section_title].append((net, ptr, domain))
+                resources[section_title].append((net, ptr, domain.strip()))
 
 for zone, params in zones.items():
     zone_network = params['prefix']

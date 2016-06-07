@@ -1,7 +1,6 @@
 import requests
 
 from datetime import datetime
-#from json.decoder import JSONDecodeError
 from requests.auth import HTTPBasicAuth
 
 
