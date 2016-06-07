@@ -49,7 +49,7 @@ for section_title in resources:
                     domains = [host['hostname'], ]
                     if host['Domain Names']:
                         for domain in host['Domain Names'].strip().split('\n'):
-                            domain.append(domain)
+                            domains.append(domain)
                     hosts[ip] = domains
         except APIException as e:
             if e.code == 404:
