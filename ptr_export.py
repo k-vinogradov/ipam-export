@@ -38,7 +38,7 @@ for section_title in resources:
             if subnet_data['isFull'] == '1':
                 ip = subnet_data['subnet'] + '/' + subnet_data['mask']
                 domains = []
-                if subnet_data['Domain Names'].strip():
+                if subnet_data['Domain Names']:
                     for domain in subnet_data['Domain Names'].strip().split('\n'):
                         domains.append(domain)
                     if len(domains) > 0:
